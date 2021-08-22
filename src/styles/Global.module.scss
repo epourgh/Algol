@@ -1,0 +1,21 @@
+$font: "Karla", sans-serif;
+$primary-color: hsl(0, 0%, 24%);
+$secondary-color: rgb(255, 255, 255);
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: $font;
+    color: $primary-color;
+}
+
+.changeH1 {
+    color: $primary-color;
+}
+
+.styledDiv {
+    width: 60vw;
+    margin: 10vh 20vw;
+    padding: 2em;
+    border: 1px solid #ccc;
+}
