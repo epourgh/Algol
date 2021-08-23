@@ -14,7 +14,10 @@ const SearchPage = () => {
 
     useEffect(() => {
 
-        if (searchTerm === '') return;
+        if (searchTerm === '') {
+            setSearching(false);
+            return;
+        };
 
         setSearching(true);
         setAlgolQueryResults([]);
@@ -24,7 +27,7 @@ const SearchPage = () => {
             .then(res => setAlgolQueryResults(res.data.hits));
             dispatch({ type: 'searched/addToList', payload: searchTerm });
             setSearching(false);
-        }, 3000)
+        }, 1000)
 
         return () => clearTimeout(delayFn);
     }, [searchTerm])
@@ -37,13 +40,21 @@ const SearchPage = () => {
               (searching) ? <p>Searching for the results...</p> : 
               (searchTerm !== '') ? <p>Search results for <b>{searchTerm}</b>.</p> : <></> 
             }
-            {algolQueryResults.map(results => {
-                return (
-                    <div key={results.objectID}>
-                        <p><b>{results.title}</b> by {results.author}</p>
-                    </div>   
-                )
-            })}
+
+            {
+                (searchTerm !== '') ?
+                <>
+                    {algolQueryResults.map(results => {
+                        return (
+                            <div key={results.objectID}>
+                                <p><b>{results.title}</b> by {results.author}</p>
+                            </div>   
+                        )
+                    })}
+                </>
+                :<></>
+            }
+            
         </div>
     );
 }
