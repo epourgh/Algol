@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import axios from "axios";
-import styles from '../styles/Global.module.scss'
+
+import styles from '../styles/Global.module.scss';
 
 const SearchPage = () => {
+
+    const dispatch = useDispatch();
+
     let [searchTerm, setSearchTerm] = useState('');
     let [searching, setSearching] = useState(false);
     let [algolQueryResults, setAlgolQueryResults] = useState([]);
+    let [searchHistory, setSearchHistory] = useState([]);
 
     useEffect(() => {
 
@@ -20,11 +26,19 @@ const SearchPage = () => {
                 console.log(res.data.hit);
                 setAlgolQueryResults(res.data.hits)
             })
+
+            setSearchHistory([... searchHistory, searchTerm]);
+            dispatch({ type: 'searched/addToList', payload: searchTerm })
+
             setSearching(false);
         }, 3000)
 
         return () => clearTimeout(delayFn)
     }, [searchTerm])
+
+    useEffect(() => {
+        console.log(searchHistory);
+    }, [searchHistory])
         
     return (
         <div className={styles.styledDiv}>
