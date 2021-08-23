@@ -11,7 +11,6 @@ const SearchPage = () => {
     let [searchTerm, setSearchTerm] = useState('');
     let [searching, setSearching] = useState(false);
     let [algolQueryResults, setAlgolQueryResults] = useState([]);
-    let [searchHistory, setSearchHistory] = useState([]);
 
     useEffect(() => {
 
@@ -22,30 +21,22 @@ const SearchPage = () => {
 
         const delayFn = setTimeout(() => {
             axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}`)
-            .then(res => {
-                console.log(res.data.hit);
-                setAlgolQueryResults(res.data.hits)
-            })
-
-            setSearchHistory([... searchHistory, searchTerm]);
-            dispatch({ type: 'searched/addToList', payload: searchTerm })
-
+            .then(res => setAlgolQueryResults(res.data.hits));
+            dispatch({ type: 'searched/addToList', payload: searchTerm });
             setSearching(false);
         }, 3000)
 
-        return () => clearTimeout(delayFn)
+        return () => clearTimeout(delayFn);
     }, [searchTerm])
-
-    useEffect(() => {
-        console.log(searchHistory);
-    }, [searchHistory])
         
     return (
         <div className={styles.styledDiv}>
             <h1 className={styles.changeH1}>Search</h1>
             <input value={searchTerm} type="text" onChange={e => setSearchTerm(e.target.value) } />
-            { (searchTerm !== '') ? <p>Search results for <b>{searchTerm}</b>.</p> : <></> }
-            { (searching)?<p>Searching for the results...</p>:<></> }
+            { 
+              (searching) ? <p>Searching for the results...</p> : 
+              (searchTerm !== '') ? <p>Search results for <b>{searchTerm}</b>.</p> : <></> 
+            }
             {algolQueryResults.map(results => {
                 return (
                     <div key={results.objectID}>
