@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import axios from "axios";
 
-import addToList from '../store/actionTypes';
+import { addToList } from '../store/actionTypes';
 import styles from '../styles/Global.module.scss';
 
 const SearchPage = () => {

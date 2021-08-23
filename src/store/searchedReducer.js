@@ -1,4 +1,4 @@
-import addToList from './actionTypes';
+import { addToList } from './actionTypes';
 
 const initialState = []
 
