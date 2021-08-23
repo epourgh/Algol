@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import rootReducer from './reducer'
+import searchedReducer from './searchedReducer'
 
-const store = createStore(rootReducer)
+const store = createStore(searchedReducer)
 export default store

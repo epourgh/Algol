@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import styles from '../styles/Global.module.scss'
 
-const searchedReducer = state => state.searched;
+const searchedReducer = state => state;
 
 const HistoryPage = () => {
     

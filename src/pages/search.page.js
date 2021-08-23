@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import axios from "axios";
 
+import addToList from '../store/actionTypes';
 import styles from '../styles/Global.module.scss';
 
 const SearchPage = () => {
@@ -25,7 +26,7 @@ const SearchPage = () => {
         const delayFn = setTimeout(() => {
             axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}`)
             .then(res => setAlgolQueryResults(res.data.hits));
-            dispatch({ type: 'searched/addToList', payload: searchTerm });
+            dispatch({ type: addToList, payload: searchTerm });
             setSearching(false);
         }, 1000)
 
